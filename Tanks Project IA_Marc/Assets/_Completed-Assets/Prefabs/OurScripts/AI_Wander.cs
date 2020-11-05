@@ -7,7 +7,7 @@ public class AI_Wander : MonoBehaviour
 {
     public float wanderRadius;
     public float wanderTimer;
-    
+
     private Transform target;
     private NavMeshAgent agent;
     private float timer;
