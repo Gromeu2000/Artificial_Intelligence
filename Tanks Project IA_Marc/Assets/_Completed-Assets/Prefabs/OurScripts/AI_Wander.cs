@@ -7,10 +7,12 @@ public class AI_Wander : MonoBehaviour
 {
     public float wanderRadius;
     public float wanderTimer;
-
+    public Transform TargetToWander;
+   
     private Transform target;
     private NavMeshAgent agent;
     private float timer;
+ 
 
     // Use this for initialization
     void OnEnable()
@@ -22,12 +24,15 @@ public class AI_Wander : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         timer += Time.deltaTime;
 
         if (timer >= wanderTimer)
         {
-            Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
+            Vector3 newPos = RandomNavSphere(TargetToWander.position, wanderRadius, -1);
+            
             agent.SetDestination(newPos);
+
             timer = 0;
         }
     }
