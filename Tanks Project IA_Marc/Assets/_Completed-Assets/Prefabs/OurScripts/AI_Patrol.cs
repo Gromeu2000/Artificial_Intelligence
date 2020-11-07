@@ -37,6 +37,7 @@ public class AI_Patrol : MonoBehaviour
         // Choose the next point in the array as the destination,
         // cycling to the start if necessary.
         destPoint = (destPoint + 1) % points.Length;
+        
     }
 
 
