@@ -19,7 +19,7 @@ public class AI_Patrol : MonoBehaviour
         // Disabling auto-braking allows for continuous movement
         // between points (ie, the agent doesn't slow down as it
         // approaches a destination point).
-        agent.autoBraking = false;
+        agent.autoBraking = true;
 
         GotoNextPoint();
     }
