@@ -22,6 +22,10 @@ namespace Complete
         private float m_ChargeSpeed;                // How fast the launch force increases, based on the max charge time.
         private bool m_Fired;                       // Whether or not the shell has been launched with this button press.
 
+        public float ShootCD;
+        private float TimerCurr;
+
+
 
         private void OnEnable()
         {
@@ -33,6 +37,7 @@ namespace Complete
 
         private void Start ()
         {
+            ShootCD = Random.Range(2, 5);
             // The fire axis is based on the player number.
             m_FireButton = "Fire" + m_PlayerNumber;
 
@@ -78,8 +83,20 @@ namespace Complete
                 // ... launch the shell.
                 Fire ();
             }
+
+            TimerCurr += Time.deltaTime;
+
+            if (TimerCurr >= ShootCD)
+            {
+                m_CurrentLaunchForce = 30;
+
+                Fire();
+
+                TimerCurr = 0;
+            }
         }
 
+       
 
         private void Fire ()
         {
