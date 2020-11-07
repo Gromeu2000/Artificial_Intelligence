@@ -37,7 +37,7 @@ namespace Complete
 
         private void Start ()
         {
-            ShootCD = Random.Range(2, 5);
+          
             // The fire axis is based on the player number.
             m_FireButton = "Fire" + m_PlayerNumber;
 
