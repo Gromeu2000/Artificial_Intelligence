@@ -52,11 +52,11 @@ namespace Complete
             // The slider should have a default value of the minimum launch force.
             m_AimSlider.value = m_MinLaunchForce;
 
-           
-            TimerCurr += Time.deltaTime;
+            float DistanceVal = Vector3.Distance(CurrentTank.transform.position, EnemyTank.transform.position);
 
-            //if (((CurrentTank.transform.position.x - EnemyTank.transform.position.x <= 20 )|| (CurrentTank.transform.position.x - EnemyTank.transform.position.x <= -20)) && ((CurrentTank.transform.position.z - EnemyTank.transform.position.z <= 20)| (CurrentTank.transform.position.z - EnemyTank.transform.position.z <= -20)))
-            //{
+           // if (DistanceVal < 20 || DistanceVal > -20)
+            
+                TimerCurr += Time.deltaTime;
 
                 if (TimerCurr >= ShootCD)
                 {
@@ -66,7 +66,7 @@ namespace Complete
 
                     TimerCurr = 0;
                 }
-            //}
+            
         }
 
        
