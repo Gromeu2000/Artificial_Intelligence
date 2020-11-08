@@ -13,15 +13,12 @@ public class AI_Wander : MonoBehaviour
     private NavMeshAgent agent;
     private float timer;
  
-
-    // Use this for initialization
     void OnEnable()
     {
         agent = GetComponent<NavMeshAgent>();
         timer = wanderTimer;
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -41,7 +38,6 @@ public class AI_Wander : MonoBehaviour
     {
         Vector3 randDirection = Random.insideUnitSphere * dist;
         
-
         randDirection += origin;
 
         NavMeshHit navHit;

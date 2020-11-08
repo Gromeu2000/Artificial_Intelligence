@@ -14,12 +14,8 @@ public class Turret_Aim : MonoBehaviour
   
     private float Shoot_Timer;
     public GameObject Target;
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+   
     void Update()
     {
         if (CurrentTank.tag == "Red")
@@ -30,8 +26,6 @@ public class Turret_Aim : MonoBehaviour
         {
             Turret.transform.LookAt(GameObject.FindGameObjectWithTag("Red").transform);
         }
-
-       
     }
 
 
