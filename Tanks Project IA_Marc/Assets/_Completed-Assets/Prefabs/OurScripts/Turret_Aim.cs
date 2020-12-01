@@ -20,12 +20,19 @@ public class Turret_Aim : MonoBehaviour
     {
         if (CurrentTank.tag == "Red")
         {
-            Turret.transform.LookAt(GameObject.FindGameObjectWithTag("Blue").transform);
+            if (GameObject.FindGameObjectWithTag("Blue") != null)
+            {
+                Turret.transform.LookAt(GameObject.FindGameObjectWithTag("Blue").transform);
+            }
         }
         else if (CurrentTank.tag == "Blue")
         {
-            Turret.transform.LookAt(GameObject.FindGameObjectWithTag("Red").transform);
+            if (GameObject.FindGameObjectWithTag("Red") != null)
+            {
+                Turret.transform.LookAt(GameObject.FindGameObjectWithTag("Red").transform);
+            }
         }
+        
     }
 
 
