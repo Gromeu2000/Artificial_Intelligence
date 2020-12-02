@@ -7,15 +7,11 @@ public class Turret_Aim : MonoBehaviour
 {
     // Start is called before the first frame update
     //Shooting and Aiming
-    public GameObject CurrentTank;
-    public GameObject Turret;
-   
-    public Rigidbody Bullet;
-  
-    private float Shoot_Timer;
-    public GameObject Target;
 
-   
+ 
+    public GameObject CurrentTank;          //Aiming Tank
+    public GameObject Turret;               //Turrent Tank Aiming            
+
     void Update()
     {
         if (CurrentTank.tag == "Red")
@@ -34,6 +30,5 @@ public class Turret_Aim : MonoBehaviour
         }
         
     }
-
 
 }
