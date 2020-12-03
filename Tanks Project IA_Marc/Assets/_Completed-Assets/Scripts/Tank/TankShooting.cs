@@ -20,7 +20,7 @@ namespace Complete
        
                // The force that will be given to the shell when the fire button is released.
         private float m_ChargeSpeed;                // How fast the launch force increases, based on the max charge time.
-        private bool m_Fired;                       // Whether or not the shell has been launched with this button press.
+        //private bool m_Fired;                       // Whether or not the shell has been launched with this button press.
 
 
 
@@ -62,7 +62,7 @@ namespace Complete
 
         private void Fire ()
         {
-            m_Fired = true;
+            //m_Fired = true;
 
             Rigidbody shellInstance =
                 Instantiate (m_Shell, m_FireTransform.position, m_FireTransform.rotation) as Rigidbody;

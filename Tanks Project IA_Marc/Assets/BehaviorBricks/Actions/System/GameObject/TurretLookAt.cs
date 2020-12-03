@@ -23,6 +23,7 @@ namespace BBUnity.Actions
                 if (GameObject.FindGameObjectWithTag("Blue") != null)
                 {
                     Turret.transform.LookAt(GameObject.FindGameObjectWithTag("Blue").transform);
+
                     return TaskStatus.COMPLETED;
                 }
                 else
