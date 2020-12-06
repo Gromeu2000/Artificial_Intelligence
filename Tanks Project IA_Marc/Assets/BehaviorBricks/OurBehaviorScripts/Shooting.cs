@@ -9,37 +9,66 @@ using Pada1.BBCore.Framework; // BasePrimitiveAction
       "specified velocity.")]
 public class Shooting : BasePrimitiveAction
 {
-    // Define the input parameter "shootPoint".
-    [InParam("shootPoint")]
-    public Transform shootPoint;
+   
+    [InParam("shell")]
+    [Help("Bullet shoot")]
+    public Rigidbody m_Shell;
 
-    // Define the input parameter "bullet" (the prefab to be cloned).
-    [InParam("bullet")]
-    public GameObject bullet;
+    [InParam("spawnTransform")]
+    [Help("Starting position of the shell")]
+    public Transform m_FireTransform;
 
-    // Define the input parameter velocity, and provide a default
-    // value of 30.0 when used as CONSTANT in the editor.
-    [InParam("velocity", DefaultValue = 30f)]
-    public float velocity;
+    [InParam("minLaunchForce")]
+    public float m_MinLaunchForce;
 
-    // Main class method, invoked by the execution engine.
+    [InParam("maxLaunchForce")]
+    public float m_MaxLaunchForce = 30f;
+
+    [InParam("currentLaunchForce")]
+    public float m_CurrentLaunchForce;
+
+    public float ShootCD;
+    private float TimerCurr;
+
+    [InParam("currentTank")]
+    public GameObject CurrentTank;
+
+    [InParam("enemyTank")]
+    public GameObject EnemyTank;
+
+    private void OnEnable()
+    {
+        m_CurrentLaunchForce = m_MinLaunchForce;
+    }
+
     public override TaskStatus OnUpdate()
     {
-        // Instantiate the bullet prefab.
-        GameObject newBullet = GameObject.Instantiate(
-                                    bullet, shootPoint.position,
-                                    shootPoint.rotation * bullet.transform.rotation
-                                ) as GameObject;
-        // Give it a velocity
-        if (newBullet.GetComponent<Rigidbody>() == null)
-            // Safeguard test, although the rigid body should be provided by the
-            // prefab to set its weight.
-            newBullet.AddComponent<Rigidbody>();
 
-        newBullet.GetComponent<Rigidbody>().velocity = velocity * shootPoint.forward;
-        // The action is completed. We must inform the execution engine.
-        return TaskStatus.COMPLETED;
+        TimerCurr += Time.deltaTime;
 
-    } // OnUpdate
+        if (TimerCurr >= ShootCD)
+        {
+            m_CurrentLaunchForce = 30;
+
+            Fire();
+            TimerCurr = 0;
+
+            return TaskStatus.COMPLETED;
+        }
+        else
+        {
+            return TaskStatus.FAILED;
+        }
+    }
+
+    private void Fire()
+    {
+        Rigidbody shellInstance =
+            GameObject.Instantiate(m_Shell, m_FireTransform.position, m_FireTransform.rotation) as Rigidbody;
+
+        shellInstance.velocity = m_CurrentLaunchForce * m_FireTransform.forward;
+
+        m_CurrentLaunchForce = m_MinLaunchForce;
+    }
 
 } // class Shooting
