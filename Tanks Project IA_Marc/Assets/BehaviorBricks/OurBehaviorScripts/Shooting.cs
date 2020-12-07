@@ -15,11 +15,6 @@ namespace BBUnity.Actions
         [InParam("shell")]
         [Help("Bullet shoot")]
         public Rigidbody m_Shell;
-
-        [OutParam("BulletNumber")]
-        public int numberBullets;
-
-        
         
         [InParam("minLaunchForce")]
         public float m_MinLaunchForce;
@@ -34,6 +29,8 @@ namespace BBUnity.Actions
         public GameObject CurrentTank;
 
         private Transform spawnShoot;
+
+        public GameObject manager;
 
         bool fire = true;
 
@@ -52,7 +49,8 @@ namespace BBUnity.Actions
                 spawnShoot = turret;
             }
 
-            numberBullets = 3;
+            manager = GameObject.Find("GameManager");
+
             fire = true;
             currentTime = 0;
         }
@@ -68,14 +66,15 @@ namespace BBUnity.Actions
                     fire = true;
             }
 
-            if (fire && numberBullets>0)
+        
+            
+            if (fire && manager.GetComponent<Complete.GameManager>().p1_bullets > 0)
             {
                 m_CurrentLaunchForce = (m_CurrentLaunchForce + m_MaxLaunchForce) / m_MinLaunchForce;
                 Fire();
                 fire = false;
-            }   
-
-            
+            }
+           
 
             return TaskStatus.RUNNING;
 
@@ -91,7 +90,7 @@ namespace BBUnity.Actions
             m_CurrentLaunchForce = 10;
 
             currentTime = 0;
-            --numberBullets;
+            --manager.GetComponent<Complete.GameManager>().p1_bullets;
 
         }
 

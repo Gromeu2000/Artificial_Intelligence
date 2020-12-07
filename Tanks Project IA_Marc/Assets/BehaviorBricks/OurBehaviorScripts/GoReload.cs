@@ -13,8 +13,8 @@ namespace BBUnity.Actions
 
         [InParam("ReloadPos")]
         public GameObject ReloadPoint;
-        [OutParam("BulletNumber")]
-        public int numberBullets;
+
+        public GameObject manager;
 
         private UnityEngine.AI.NavMeshAgent navAgent;
 
@@ -22,6 +22,7 @@ namespace BBUnity.Actions
 
         public override void OnStart()
         {
+            manager = GameObject.Find("GameManager");
 
             if (ReloadPoint == null)
             {
@@ -53,7 +54,7 @@ namespace BBUnity.Actions
                 return TaskStatus.FAILED; }
             if (!navAgent.pathPending && navAgent.remainingDistance <= navAgent.stoppingDistance)
             {
-                numberBullets = 3;
+                manager.GetComponent<Complete.GameManager>().p1_bullets = 3;
                 return TaskStatus.COMPLETED;
             }
             else if (navAgent.destination != targetTransform.position)

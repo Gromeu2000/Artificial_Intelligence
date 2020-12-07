@@ -15,20 +15,21 @@ public class BulletCheck : ConditionBase
 {
    
     // Start is called before the first frame update
-    [InParam("BulletNumber")]
-    public int numberBullets;
+
+    public GameObject manager;
 
     public override bool Check()
     {
-        
-        if (numberBullets < 1) {
+        manager = GameObject.Find("GameManager");
 
-            return true;
+        if (manager != null)
+        {
+            if (manager.GetComponent<Complete.GameManager>().p1_bullets <= 1)
+            {
+
+                return true;
+            }
         }
-
-
-
-
 
         return false;
     }
