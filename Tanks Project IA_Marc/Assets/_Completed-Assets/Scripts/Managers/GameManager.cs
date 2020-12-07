@@ -46,8 +46,7 @@ namespace Complete
 
         private void SpawnAllTanks()
         {
-           
-
+          
             m_Tanks[0].m_Instance =
                    Instantiate(m_TankPrefab, m_Tanks[0].m_SpawnPoint.position, m_Tanks[0].m_SpawnPoint.rotation) as GameObject;
             m_Tanks[0].m_PlayerNumber =   1;

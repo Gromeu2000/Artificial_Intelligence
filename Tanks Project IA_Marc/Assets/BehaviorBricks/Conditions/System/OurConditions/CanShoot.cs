@@ -19,6 +19,9 @@ public class CanShoot : ConditionBase
     [InParam("targetTank")]
     public GameObject targetTank;
 
+    [InParam("maxDistance")]
+    public int maxDistance;
+
     
     public override bool Check()
     {
@@ -26,8 +29,14 @@ public class CanShoot : ConditionBase
         {
 
             Vector3 currentPos = currentTank.transform.position;
-            Vector3 targetPos = GameObject.Find("CompleteTank(Clone)").transform.position;
-            if(currentPos== targetPos)
+            Vector3 targetPos = Vector3.zero;
+
+            if (GameObject.Find("CompleteTank(Clone)") != null)
+            {
+                targetPos = GameObject.Find("CompleteTank(Clone)").transform.position;
+            }
+
+            if(GameObject.Find("CompleteTank2(Clone)") != null && currentPos == targetPos)
             {
                 targetPos = GameObject.Find("CompleteTank2(Clone)").transform.position;
             }
@@ -38,7 +47,7 @@ public class CanShoot : ConditionBase
             distance.y = Mathf.Abs(targetPos.y - currentPos.y);
             distance.z = Mathf.Abs(targetPos.z - currentPos.z);
 
-            if (InRange(15, distance))
+            if (InRange(maxDistance, distance))
             {
                 fire = false;
                 return fire;
