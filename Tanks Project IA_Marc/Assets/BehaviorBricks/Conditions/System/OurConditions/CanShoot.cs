@@ -38,7 +38,7 @@ public class CanShoot : ConditionBase
             distance.y = Mathf.Abs(targetPos.y - currentPos.y);
             distance.z = Mathf.Abs(targetPos.z - currentPos.z);
 
-            if (InRange(50, distance))
+            if (InRange(25, distance))
             {
                 fire = false;
                 return fire;

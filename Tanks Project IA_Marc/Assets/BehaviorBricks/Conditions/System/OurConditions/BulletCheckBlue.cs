@@ -9,11 +9,11 @@ using UnityEngine.AI;
 
 
 
-[Condition("OurConditions/BulletChecker")]
+[Condition("OurConditions/BulletCheckerBlue")]
 
-public class BulletCheck : ConditionBase
+public class BulletCheckBlue : ConditionBase
 {
-   
+
     // Start is called before the first frame update
 
     public GameObject manager;
@@ -24,7 +24,7 @@ public class BulletCheck : ConditionBase
 
         if (manager != null)
         {
-            if (manager.GetComponent<Complete.GameManager>().p1_bullets <= 1)
+            if (manager.GetComponent<Complete.GameManager>().p1_bullets < 1)
             {
 
                 return true;
