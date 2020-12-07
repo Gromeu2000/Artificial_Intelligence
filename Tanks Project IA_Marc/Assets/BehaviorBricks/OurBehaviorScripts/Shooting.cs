@@ -29,30 +29,46 @@ namespace BBUnity.Actions
         [InParam("currentTank")]
         public GameObject CurrentTank;
 
-
         private Transform spawnShoot;
 
-        private void OnEnable()
-        {
-            m_CurrentLaunchForce = m_MinLaunchForce;
-        }
+        bool fire = true;
+
+        [InParam("delay")]
+        [Help("Delay between bullets")]
+        public float delay;
+        private float currentTime;
 
         public override void OnStart()
         {
-           if(spawnShoot == null)
+
+            if (spawnShoot == null)
             {
                 Transform turret = CurrentTank.GetComponentInChildren<Transform>().Find("TankRenderers").Find("TankTurret").Find("FireTransform");
 
                 spawnShoot = turret;
             }
+
+            fire = true;
+            currentTime = 0;
         }
 
         public override TaskStatus OnUpdate()
         {
+            //If player has already shooted apply delay and shoot again
+            if (!fire)
+            {
+                currentTime += Time.deltaTime;
 
-            m_CurrentLaunchForce = 30;
+                if (currentTime >= delay)
+                    fire = true;
+            }
 
-            Fire();
+            if (fire)
+            {
+                m_CurrentLaunchForce = (m_CurrentLaunchForce + m_MaxLaunchForce) / m_MinLaunchForce;
+                Fire();
+                fire = false;
+            }   
 
             return TaskStatus.RUNNING;
 
@@ -65,7 +81,9 @@ namespace BBUnity.Actions
 
             shellInstance.velocity = m_CurrentLaunchForce * (spawnShoot.forward);
 
-            m_CurrentLaunchForce = m_MinLaunchForce;
+            m_CurrentLaunchForce = 10;
+
+            currentTime = 0;
         }
 
     } // class Shooting
