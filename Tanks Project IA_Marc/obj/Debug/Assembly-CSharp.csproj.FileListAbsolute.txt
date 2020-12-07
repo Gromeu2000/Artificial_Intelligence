@@ -304,3 +304,12 @@ C:\Users\PCCom\Documents\GitHub\Artificial_Intelligence\Artificial_Intelligence\
 C:\Users\PCCom\Documents\GitHub\Artificial_Intelligence\Artificial_Intelligence\Tanks Project IA_Marc\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\PCCom\Documents\GitHub\Artificial_Intelligence\Artificial_Intelligence\Tanks Project IA_Marc\obj\Debug\Assembly-CSharp.dll
 C:\Users\PCCom\Documents\GitHub\Artificial_Intelligence\Artificial_Intelligence\Tanks Project IA_Marc\obj\Debug\Assembly-CSharp.pdb
+C:\Users\PCCom\Documents\GitHub\Artificial_Intelligence\Artificial_Intelligence\Tanks Project IA_Marc\Temp\bin\Debug\BehaviorBricks.dll
+C:\Users\PCCom\Documents\GitHub\Artificial_Intelligence\Artificial_Intelligence\Tanks Project IA_Marc\Temp\bin\Debug\UnityEditor.Purchasing.dll
+C:\Users\PCCom\Documents\GitHub\Artificial_Intelligence\Artificial_Intelligence\Tanks Project IA_Marc\Temp\bin\Debug\UnityEngine.Advertisements.dll
+C:\Users\PCCom\Documents\GitHub\Artificial_Intelligence\Artificial_Intelligence\Tanks Project IA_Marc\Temp\bin\Debug\UnityEngine.Monetization.dll
+C:\Users\PCCom\Documents\GitHub\Artificial_Intelligence\Artificial_Intelligence\Tanks Project IA_Marc\Temp\bin\Debug\UnityEngine.Purchasing.dll
+C:\Users\PCCom\Documents\GitHub\Artificial_Intelligence\Artificial_Intelligence\Tanks Project IA_Marc\Temp\bin\Debug\UnityEngine.Monetization.pdb
+C:\Users\PCCom\Documents\GitHub\Artificial_Intelligence\Artificial_Intelligence\Tanks Project IA_Marc\Temp\bin\Debug\UnityEngine.Advertisements.pdb
+C:\Users\PCCom\Documents\GitHub\Artificial_Intelligence\Artificial_Intelligence\Tanks Project IA_Marc\Temp\bin\Debug\UnityEngine.Purchasing.pdb
+C:\Users\PCCom\Documents\GitHub\Artificial_Intelligence\Artificial_Intelligence\Tanks Project IA_Marc\Temp\bin\Debug\UnityEditor.Purchasing.pdb

@@ -15,8 +15,12 @@ namespace BBUnity.Actions
         [InParam("shell")]
         [Help("Bullet shoot")]
         public Rigidbody m_Shell;
+
+        [OutParam("BulletNumber")]
         public int numberBullets;
 
+        
+        
         [InParam("minLaunchForce")]
         public float m_MinLaunchForce;
 
@@ -48,6 +52,7 @@ namespace BBUnity.Actions
                 spawnShoot = turret;
             }
 
+            numberBullets = 3;
             fire = true;
             currentTime = 0;
         }
@@ -63,12 +68,14 @@ namespace BBUnity.Actions
                     fire = true;
             }
 
-            if (fire)
+            if (fire && numberBullets>0)
             {
                 m_CurrentLaunchForce = (m_CurrentLaunchForce + m_MaxLaunchForce) / m_MinLaunchForce;
                 Fire();
                 fire = false;
             }   
+
+            
 
             return TaskStatus.RUNNING;
 
@@ -84,6 +91,8 @@ namespace BBUnity.Actions
             m_CurrentLaunchForce = 10;
 
             currentTime = 0;
+            --numberBullets;
+
         }
 
     } // class Shooting
