@@ -6,10 +6,10 @@ using Pada1.BBCore.Framework; // BasePrimitiveAction
 
 namespace BBUnity.Actions
 {
-    [Action("OurBehaviorScripts/Shooting")]
+    [Action("OurBehaviorScripts/ShootingRed")]
     [Help("Clone a 'bullet' and shoots it through the Forward axis with the " +
           "specified velocity.")]
-    public class Shooting : GOAction
+    public class ShootingRed : GOAction
     {
 
         [InParam("shell")]
@@ -68,7 +68,7 @@ namespace BBUnity.Actions
 
         
             
-            if (fire && manager.GetComponent<Complete.GameManager>().p1_bullets > 0)
+            if (fire && manager.GetComponent<Complete.GameManager>().p2_bullets > 0)
             {
                 m_CurrentLaunchForce = (m_CurrentLaunchForce + m_MaxLaunchForce) / m_MinLaunchForce;
                 Fire();
@@ -90,7 +90,7 @@ namespace BBUnity.Actions
             m_CurrentLaunchForce = 10;
 
             currentTime = 0;
-            --manager.GetComponent<Complete.GameManager>().p1_bullets;
+            --manager.GetComponent<Complete.GameManager>().p2_bullets;
 
         }
 

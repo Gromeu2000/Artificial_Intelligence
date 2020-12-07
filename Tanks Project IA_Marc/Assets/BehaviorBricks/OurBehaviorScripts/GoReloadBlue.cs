@@ -6,9 +6,9 @@ using Pada1.BBCore.Framework; // BasePrimitiveAction
 
 namespace BBUnity.Actions
 {
-    [Action("OurBehaviorScripts/GoReload")]
-    
-    public class GoReload : GOAction
+    [Action("OurBehaviorScripts/GoReloadBlue")]
+
+    public class GoReloadBlue : GOAction
     {
 
         [InParam("ReloadPos")]
@@ -26,7 +26,6 @@ namespace BBUnity.Actions
 
             if (ReloadPoint == null)
             {
-               
                 return;
             }
 
@@ -35,23 +34,25 @@ namespace BBUnity.Actions
             navAgent = gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
             if (navAgent == null)
             {
-               
+
                 navAgent = gameObject.AddComponent<UnityEngine.AI.NavMeshAgent>();
             }
             navAgent.SetDestination(targetTransform.position);
 
-           #if UNITY_5_6_OR_NEWER
+#if UNITY_5_6_OR_NEWER
                        navAgent.isStopped = false;
-           #else
-                           navAgent.Resume();
-           #endif
+#else
+            navAgent.Resume();
+#endif
         }
 
         public override TaskStatus OnUpdate()
         {
 
-            if (ReloadPoint == null) {
-                return TaskStatus.FAILED; }
+            if (ReloadPoint == null)
+            {
+                return TaskStatus.FAILED;
+            }
             if (!navAgent.pathPending && navAgent.remainingDistance <= navAgent.stoppingDistance)
             {
                 manager.GetComponent<Complete.GameManager>().p1_bullets = 3;
@@ -68,12 +69,12 @@ namespace BBUnity.Actions
 
             }
 
-            
-           
+
+
 
         }
 
-      
+
 
     } // class Shooting
 
