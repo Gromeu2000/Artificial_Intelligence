@@ -14,6 +14,9 @@ namespace BBUnity.Actions
         [InParam("ReloadPos")]
         public GameObject ReloadPoint;
 
+        [InParam("ReloadAudioSource")]
+        public AudioSource reloadAudio;
+
         public GameObject manager;
 
         private UnityEngine.AI.NavMeshAgent navAgent;
@@ -59,6 +62,7 @@ namespace BBUnity.Actions
             else if (navAgent.destination != targetTransform.position)
             {
                 navAgent.SetDestination(targetTransform.position);
+                reloadAudio.Play();
                 return TaskStatus.RUNNING;
             }
             else

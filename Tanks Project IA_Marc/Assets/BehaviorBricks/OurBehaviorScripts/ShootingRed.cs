@@ -28,6 +28,9 @@ namespace BBUnity.Actions
         [InParam("currentTank")]
         public GameObject CurrentTank;
 
+        [InParam("fireAudioSource")]
+        public AudioSource fireAudio;
+
         private Transform spawnShoot;
 
         public GameObject manager;
@@ -72,6 +75,7 @@ namespace BBUnity.Actions
             {
                 m_CurrentLaunchForce = (m_CurrentLaunchForce + m_MaxLaunchForce) / m_MinLaunchForce;
                 Fire();
+                fireAudio.Play();
                 fire = false;
             }
            

@@ -14,6 +14,9 @@ namespace BBUnity.Actions
         [InParam("ReloadPos")]
         public GameObject ReloadPoint;
 
+        [InParam("ReloadAudioSource")]
+        public AudioSource reloadAudio;
+
         public GameObject manager;
 
         private UnityEngine.AI.NavMeshAgent navAgent;
@@ -56,6 +59,7 @@ namespace BBUnity.Actions
             if (!navAgent.pathPending && navAgent.remainingDistance <= navAgent.stoppingDistance)
             {
                 manager.GetComponent<Complete.GameManager>().p1_bullets = 3;
+                reloadAudio.Play();
                 return TaskStatus.COMPLETED;
             }
             else if (navAgent.destination != targetTransform.position)
@@ -66,7 +70,6 @@ namespace BBUnity.Actions
             else
             {
                 return TaskStatus.COMPLETED;
-
             }
 
 
