@@ -17,7 +17,8 @@ def Alo():
 	h=9
 	i=8
 
-	print(i,h)
+	print(i)
+
 
 
 
