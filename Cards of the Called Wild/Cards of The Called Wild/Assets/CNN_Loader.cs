@@ -31,7 +31,7 @@ public class CNN_Loader : MonoBehaviour
     {
         //input = ExecuteParts(worker,input,5);
         //worker= worker.Execute(input);
-        //input2= worker.PeekOutput();
+        //input= worker.PeekOutput();
         //int A = 0;
     }
 
