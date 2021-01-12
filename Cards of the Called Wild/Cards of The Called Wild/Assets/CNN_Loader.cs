@@ -35,9 +35,6 @@ public class CNN_Loader : MonoBehaviour
         //int A = 0;
     }
 
-
-
-
     Tensor ExecuteParts(IWorker worker,Tensor tense,int sync = 5)
     {
 
