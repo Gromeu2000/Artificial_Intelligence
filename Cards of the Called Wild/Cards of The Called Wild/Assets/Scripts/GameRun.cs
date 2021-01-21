@@ -98,7 +98,7 @@ public class GameRun : MonoBehaviour
    	  	// Determine label of the character, return it
    	  	int label = 0;
    	  	if(chars[idx].name.StartsWith("frog")) label = 1;
-   	  	else if(chars[idx].name.StartsWith("opposum")) label = 2;
+   	  	else if(chars[idx].name.StartsWith("oposum")) label = 2;
 
     	return label;
     } 
@@ -106,7 +106,7 @@ public class GameRun : MonoBehaviour
     // Generate another turn
     IEnumerator GenerateTurn()
     {	
-    	for(int turn=0; turn<100000; turn++) {
+    	for(int turn=0; turn<100000; ) {
 
 	        ///////////////////////////////////////
 	        // Generate enemy cards
@@ -153,10 +153,15 @@ public class GameRun : MonoBehaviour
 	        // Compute reward
 	        ///////////////////////////////////////
 	        float reward = ComputeReward(deck, action);
-	        
-	        Debug.Log("Turn/reward: " + turn.ToString() + "->" + reward.ToString());
 
-	        agent.GetReward(reward);
+            if (reward != -2)
+            {
+
+                Debug.Log("Turn/reward: " + turn.ToString() + "->" + reward.ToString());
+                turn++;
+            }
+
+            agent.GetReward(reward);
 
 
 	        ///////////////////////////////////////
