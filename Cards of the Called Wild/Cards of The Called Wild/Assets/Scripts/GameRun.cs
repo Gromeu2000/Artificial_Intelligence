@@ -15,18 +15,25 @@ public class GameRun : MonoBehaviour
 	private int [] enemyChars;	
 	private Agent agent;
 
+    private GameObject playerCards;
+    private int[] playerChars;
+    private int[] characterSprite = { 1, 6, 12 };
+
 	private int NUM_ENEMY_CARDS = 3;
 	private int NUM_CLASSES     = 3;
 	private int DECK_SIZE       = 4;
+    private int NUM_PLAYER_CARDS = 3;
 
-	// Rewards
-	private float RWD_ACTION_INVALID = -2.0f;
+    // Rewards
+    private float RWD_ACTION_INVALID = -2.0f;
 	private float RWD_HAND_LOST      = -1.0f;
 	private float RWD_TIE            = -0.1f;
 	private float RWD_HAND_WON       =  1.0f;
 
 	// Other UI elements
 	private UnityEngine.UI.Text textDeck;
+    private UnityEngine.UI.Text textEnemyAction;
+    private UnityEngine.UI.Text textPlayerAction;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +54,8 @@ public class GameRun : MonoBehaviour
         // UI management
         ///////////////////////////////////////
         textDeck = GameObject.Find("TextDeck").GetComponent<UnityEngine.UI.Text>();
+        textEnemyAction = GameObject.Find("TextEnemyAction").GetComponent<UnityEngine.UI.Text>();
+        textPlayerAction = GameObject.Find("TextPlayerAction").GetComponent<UnityEngine.UI.Text>();
 
 
         ///////////////////////////////////////
@@ -55,7 +64,11 @@ public class GameRun : MonoBehaviour
         enemyCards = GameObject.Find("EnemyCards");
         enemyChars = new int[NUM_ENEMY_CARDS];
 
-        agent      = GameObject.Find("AgentManager").GetComponent<Agent>();
+        playerCards = GameObject.Find("PlayerCards");
+        playerChars = new int[NUM_PLAYER_CARDS];
+
+
+        agent = GameObject.Find("AgentManager").GetComponent<Agent>();
 
         agent.Initialize();
 
@@ -105,72 +118,104 @@ public class GameRun : MonoBehaviour
 
     // Generate another turn
     IEnumerator GenerateTurn()
-    {	
-    	for(int turn=0; turn<100000; ) {
+    {
+        for (int turn = 0; turn < 100000; turn++)
+        {
 
-	        ///////////////////////////////////////
-	        // Generate enemy cards
-	        ///////////////////////////////////////
+            ///////////////////////////////////////
+            // Generate enemy cards
+            ///////////////////////////////////////
 
-	    	// Destroy previous sprites (if any) and generate new cards
-	    	int c = 0;
-	    	foreach(Transform card in enemyCards.transform) {
-	    		foreach(Transform sprite in card) {
-	    			Destroy(sprite.gameObject);
-	    		}
+            // Destroy previous sprites (if any) and generate new cards
+            int c = 0;
+            foreach (Transform card in enemyCards.transform)
+            {
+                foreach (Transform sprite in card)
+                {
+                    Destroy(sprite.gameObject);
+                }
 
-	    		enemyChars[c++] = GenerateCard(card);
-	    	}
-
-
-	        ///////////////////////////////////////
-	        // Generate player deck
-	        ///////////////////////////////////////
-	        int [] deck   = GeneratePlayerDeck();
-	        textDeck.text = "Deck: ";
-	        foreach(int card in deck)
-	        	textDeck.text += card.ToString() + "/";
+                enemyChars[c++] = GenerateCard(card);
+            }
 
 
-	        ///////////////////////////////////////
-	        // Tell the player to play
-	        ///////////////////////////////////////
+            ///////////////////////////////////////
+            // Generate player deck
+            ///////////////////////////////////////
+            int[] deck = GeneratePlayerDeck();
+            textDeck.text = "Deck in turn ";
 
-	        // IMPORTANT: wait until the frame is rendered so the player sees
-	        //            the newly generated cards (otherwise it will see the previous ones)
-	        yield return new WaitForEndOfFrame();
+            textDeck.text += turn.ToString() + ": ";
 
-	        int [] action = agent.Play(deck, enemyChars);
+            foreach (int card in deck)
+                textDeck.text += card.ToString() + "/";
 
-	        textDeck.text += " Action:";
-	        foreach(int a in action)
-	        	textDeck.text += a.ToString() + "/";
-
+        
 
 
+            ///////////////////////////////////////
+            // Tell the player to play
+            ///////////////////////////////////////
+            ///
+            int[] action = agent.Play(deck, enemyChars);
 
-	        ///////////////////////////////////////
-	        // Compute reward
-	        ///////////////////////////////////////
-	        float reward = ComputeReward(deck, action);
+            int b = 0;
+            foreach (Transform card in playerCards.transform)
+            {
+                foreach (Transform sprite in card)
+                {
+                    Destroy(sprite.gameObject);
+                }
 
-            if (reward != -2)
+                int idx = Random.Range(0, backgrounds.Length);
+                Instantiate(backgrounds[idx], card.transform.position, Quaternion.identity, card.transform);
+                Instantiate(chars[characterSprite[action[b]]], card.transform.position + new Vector3(0, 0, -1), Quaternion.identity, card.transform);
+                b++;
+            }
+
+
+            textPlayerAction.text = " Action:";
+            foreach (int a in action)
+            {
+                textPlayerAction.text += a.ToString() + "/";
+            }
+
+            textEnemyAction.text = " Action:";
+            foreach (int a in enemyChars)
+            {
+                textEnemyAction.text += a.ToString() + "/";
+            }
+
+
+            ///////////////////////////////////////
+            // Compute reward
+            ///////////////////////////////////////
+            float reward = ComputeReward(deck, action);
+
+            //Turns only count if not invalid
+            /*if (reward != -2)
             {
 
                 Debug.Log("Turn/reward: " + turn.ToString() + "->" + reward.ToString());
                 turn++;
-            }
+            }*/
+
+            Debug.Log("Turn/reward: " + turn.ToString() + "->" + reward.ToString());
 
             agent.GetReward(reward);
 
 
-	        ///////////////////////////////////////
-	        // Manage turns/games
-	        ///////////////////////////////////////
+            // IMPORTANT: wait until the frame is rendered so the player sees
+            //            the newly generated cards (otherwise it will see the previous ones)
+            yield return new WaitForEndOfFrame();
 
 
+            ///////////////////////////////////////
+            // Manage turns/games
+            ///////////////////////////////////////
 
-	    	yield return new WaitForSeconds(0.1f);
+
+            yield return new WaitForSeconds(0.1f);
 
     	}
 
