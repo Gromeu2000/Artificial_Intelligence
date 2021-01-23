@@ -17,7 +17,7 @@ public class GameRun : MonoBehaviour
 
     private GameObject playerCards;
     private int[] playerChars;
-    private int[] characterSprite = { 1, 6, 12 };
+    private int[] characterSprite = { 4, 11, 15 }; //fox->4 frog->11 opossum->12
 
 	private int NUM_ENEMY_CARDS = 3;
 	private int NUM_CLASSES     = 3;
@@ -159,16 +159,16 @@ public class GameRun : MonoBehaviour
             // Generate player deck
             ///////////////////////////////////////
             int[] deck = GeneratePlayerDeck();
-            textDeck.text = "Deck in turn ";
+            textDeck.text = "Deck in turn: ";
 
-            textDeck.text += turn.ToString() + ": ";
+            textDeck.text += turn.ToString();
+
+            textDeck.text += "\n Action: ";
 
             foreach (int card in deck)
                 textDeck.text += card.ToString() + "/";
 
         
-
-
             ///////////////////////////////////////
             // Tell the player to play
             ///////////////////////////////////////
@@ -190,13 +190,13 @@ public class GameRun : MonoBehaviour
             }
 
 
-            textPlayerAction.text = " Action:";
+            textPlayerAction.text = "Action: ";
             foreach (int a in action)
             {
                 textPlayerAction.text += a.ToString() + "/";
             }
 
-            textEnemyAction.text = " Action:";
+            textEnemyAction.text = "Action: ";
             foreach (int a in enemyChars)
             {
                 textEnemyAction.text += a.ToString() + "/";
