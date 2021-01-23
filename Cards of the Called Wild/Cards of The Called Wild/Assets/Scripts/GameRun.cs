@@ -35,19 +35,10 @@ public class GameRun : MonoBehaviour
     private UnityEngine.UI.Text textEnemyAction;
     private UnityEngine.UI.Text textPlayerAction;
 
-    private int countInvalid = 0;
-    private int countLoss = 0;
-    private int countTie = 0;
-    private int countWin = 0;
-
-    private UnityEngine.UI.Text textInvalid;
-    private UnityEngine.UI.Text textLoss;
-    private UnityEngine.UI.Text textTie ;
-    private UnityEngine.UI.Text textWin;
-
     // Start is called before the first frame update
     void Start()
     {
+
 
         ///////////////////////////////////////
         // Sprite management
@@ -65,12 +56,6 @@ public class GameRun : MonoBehaviour
         textDeck = GameObject.Find("TextDeck").GetComponent<UnityEngine.UI.Text>();
         textEnemyAction = GameObject.Find("TextEnemyAction").GetComponent<UnityEngine.UI.Text>();
         textPlayerAction = GameObject.Find("TextPlayerAction").GetComponent<UnityEngine.UI.Text>();
-
-        //Counters
-        textInvalid = GameObject.Find("TextInvalid").GetComponent<UnityEngine.UI.Text>();
-        textLoss = GameObject.Find("TextLosses").GetComponent<UnityEngine.UI.Text>();
-        textTie = GameObject.Find("TextTies").GetComponent<UnityEngine.UI.Text>();
-        textWin = GameObject.Find("TextWins").GetComponent<UnityEngine.UI.Text>();
 
 
         ///////////////////////////////////////
@@ -206,26 +191,6 @@ public class GameRun : MonoBehaviour
             // Compute reward
             ///////////////////////////////////////
             float reward = ComputeReward(deck, action);
-
-            switch(reward)
-            {
-                case -2.0f:
-                    countInvalid++;
-                    textInvalid.text = "Invalids: " + countInvalid.ToString();
-                    break;
-                case -1.0f:
-                    countLoss++;
-                    textLoss.text = "Losses: " + countLoss.ToString();
-                    break;
-                case -0.1f:
-                    countTie++;
-                    textTie.text = "Ties: " + countTie.ToString();
-                    break;
-                case 1.0f:
-                    countWin++;
-                    textWin.text = "Wins: " + countWin.ToString();
-                    break;
-            }
 
             //Turns only count if not invalid
             /*if (reward != -2)
