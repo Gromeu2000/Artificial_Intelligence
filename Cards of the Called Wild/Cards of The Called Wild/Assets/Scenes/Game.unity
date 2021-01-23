@@ -190,7 +190,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 'Losses: 0'
 --- !u!222 &132377306
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -337,7 +337,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 'Ties: 0'
 --- !u!222 &238887823
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1374,7 +1374,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 'Invalids: 0'
 --- !u!222 &897291194
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1563,7 +1563,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 'Wins: 0'
 --- !u!222 &1023174324
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2201,7 +2201,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -408, y: -289.4}
+  m_AnchoredPosition: {x: -343, y: -289.4}
   m_SizeDelta: {x: 162.73, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1532569119

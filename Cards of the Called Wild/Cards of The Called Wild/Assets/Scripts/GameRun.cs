@@ -277,17 +277,31 @@ public class GameRun : MonoBehaviour
    	// action -> array with the class of each card played
     private float ComputeReward(int [] deck, int [] action)
     {
-    	// First check if the action is valid given the player's deck
-    	foreach(int card in action)
-    	{
-    		deck[card]--;
-    		if(deck[card] < 0)
-    			return RWD_ACTION_INVALID;
-    	}
+        int[] tmpDeck = deck;
+        bool invalid = true;
+        // First check if the action is valid given the player's deck
+        foreach (int card in action)
+        {
+            invalid = true;
+            for (int i = 0; i < tmpDeck.Length; i++)
+            {
+                if (tmpDeck[i] == card)
+                {
+                    tmpDeck[i] = -1;
+                    invalid = false;
+                    break;
+                }
+            }
+
+            if (invalid)
+            {
+                return RWD_ACTION_INVALID;
+            }
+        }
 
 
-    	// Second see who wins
-    	int score = 0;
+            // Second see who wins
+            int score = 0;
     	for(int i=0; i<NUM_ENEMY_CARDS; i++)
     	{
     		if(action[i] != enemyChars[i])
