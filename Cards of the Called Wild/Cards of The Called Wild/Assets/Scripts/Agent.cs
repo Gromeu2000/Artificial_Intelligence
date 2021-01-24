@@ -118,7 +118,11 @@ public class Agent : MonoBehaviour
             isValid = CheckIfValid(Cards, deck);
             if (!isValid)
             {
-               Cards= Play(deck, enemyChars);
+                action = ChooseAction();
+
+                
+
+                 Cards = ActionToCards(action);
             }
         }
 
