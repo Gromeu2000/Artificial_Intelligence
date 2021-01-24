@@ -161,11 +161,11 @@ public class GameRun : MonoBehaviour
             // Generate player deck
             ///////////////////////////////////////
             int[] deck = GeneratePlayerDeck();
-            textDeck.text = "Deck in turn: ";
+            textDeck.text = "Turn: ";
 
             textDeck.text += turn.ToString();
 
-            textDeck.text += "\n Action: ";
+            textDeck.text += "\n Deck: ";
 
             foreach (int card in deck)
                 textDeck.text += card.ToString() + "/";
