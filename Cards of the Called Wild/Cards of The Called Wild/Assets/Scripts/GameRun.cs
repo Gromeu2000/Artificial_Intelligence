@@ -34,6 +34,7 @@ public class GameRun : MonoBehaviour
 	private UnityEngine.UI.Text textDeck;
     private UnityEngine.UI.Text textEnemyAction;
     private UnityEngine.UI.Text textPlayerAction;
+    private UnityEngine.UI.Text textWinrate;
 
     private int countInvalid = 0;
     private int countLoss = 0;
@@ -68,10 +69,11 @@ public class GameRun : MonoBehaviour
         textPlayerAction = GameObject.Find("TextPlayerAction").GetComponent<UnityEngine.UI.Text>();
 
         //Trackers
-        textInvalid = GameObject.Find("TextInvalid").GetComponent<UnityEngine.UI.Text>();
+        //textInvalid = GameObject.Find("TextInvalid").GetComponent<UnityEngine.UI.Text>();
         textLoss = GameObject.Find("TextLosses").GetComponent<UnityEngine.UI.Text>();
         textTie = GameObject.Find("TextTies").GetComponent<UnityEngine.UI.Text>();
         textWin = GameObject.Find("TextWins").GetComponent<UnityEngine.UI.Text>();
+        textWinrate = GameObject.Find("Winrate").GetComponent<UnityEngine.UI.Text>();
 
 
         ///////////////////////////////////////
@@ -135,7 +137,7 @@ public class GameRun : MonoBehaviour
     // Generate another turn
     IEnumerator GenerateTurn()
     {
-        for (int turn = 0; turn < 100000; turn++)
+        for (int turn = 1; turn < 100000; turn++)
         {
 
             ///////////////////////////////////////
@@ -202,6 +204,18 @@ public class GameRun : MonoBehaviour
                 textEnemyAction.text += a.ToString() + "/";
             }
 
+            textWinrate.text = "Winrate:";
+
+            if (turn > 0)
+            {
+                float Wr = (float)countWin / (float)turn;
+                Wr=Wr * 100;
+                
+                textWinrate.text += Wr.ToString()+"";
+                
+            }
+          
+
 
             ///////////////////////////////////////
             // Compute reward
@@ -243,6 +257,8 @@ public class GameRun : MonoBehaviour
                 default:
                     break;
             }
+
+
 
             Debug.Log("Turn/reward: " + turn.ToString() + "->" + reward.ToString());
 
