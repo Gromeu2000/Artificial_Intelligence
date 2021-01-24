@@ -216,7 +216,7 @@ public class GameRun : MonoBehaviour
                 turn++;
             }*/
 
-            Debug.Log("Turn/reward: " + turn.ToString() + "->" + reward.ToString());
+            
 
             agent.GetReward(reward);
 
@@ -224,7 +224,9 @@ public class GameRun : MonoBehaviour
             {
                 case -2.0f:
                     countInvalid++;
+                    turn--;
                     textInvalid.text = "Invalids: " + countInvalid.ToString();
+                    
                     break;
                 case -1.0f:
                     countLoss++;
@@ -238,7 +240,11 @@ public class GameRun : MonoBehaviour
                     countWin++;
                     textWin.text = "Wins: " + countWin.ToString();
                     break;
+                default:
+                    break;
             }
+
+            Debug.Log("Turn/reward: " + turn.ToString() + "->" + reward.ToString());
 
 
             // IMPORTANT: wait until the frame is rendered so the player sees
@@ -295,9 +301,11 @@ public class GameRun : MonoBehaviour
 
             if (invalid)
             {
+                
                 return RWD_ACTION_INVALID;
             }
         }
+
 
 
             // Second see who wins

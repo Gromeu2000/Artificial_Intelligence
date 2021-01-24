@@ -79,6 +79,7 @@ public class Agent : MonoBehaviour
     // Play one turn
     // deck: the cards the player has to play with
     // enemyChars: the labels of the enemy's characters (for debug/evaluation purposes only)
+
     public int [] Play(int [] deck, int [] enemyChars) 
     {
     	// First: read the enemy cards
@@ -106,12 +107,25 @@ public class Agent : MonoBehaviour
     	// Third: choose an action
     	action = ChooseAction();
 
-    	//Debug.Log("ACTION");
-    	//Debug.Log(action);
+        //Debug.Log("ACTION");
+        //Debug.Log(action);
+
+        int[] Cards= ActionToCards(action);
+
+        bool isValid = false;
+        while (!isValid)
+        {
+            isValid = CheckIfValid(Cards, deck);
+            if (!isValid)
+            {
+               Cards= Play(deck, enemyChars);
+            }
+        }
 
 
-    	// Translate the action to cards and return
-    	return ActionToCards(action);
+
+        // Translate the action to cards and return
+        return Cards;
     }
 
 
@@ -123,8 +137,102 @@ public class Agent : MonoBehaviour
 		qTable [state, action] += learningRate * (reward - qTable [state, action]); 
     }
 
+    public int[] Play2Check(int[] deck, int[] enemyChars)
+    {
+        // First: read the enemy cards
+
+        int[] enemyCards = new int[numEnemyCards];
+
+
+        for (int i = 0; i < renderTextures.Length; i++)
+        {
+            enemyCards[i] = ClassifyCard(renderTextures[i]);
+
+            //Debug.Log("Agent.Play - classified card: " + enemyCards[i].ToString() + " -> " + enemyChars[i].ToString());
+        }
+
+
+        //foreach(int x in enemyCards)
+        //	Debug.Log(x);
+
+        // Second: compute the state of the game
+        CountMyCards(deck);
+
+        oldState = state;
+        state = ComputeState(enemyCards);
+
+        // Third: choose an action
+        action = ChooseAction();
+
+        //Debug.Log("ACTION");
+        //Debug.Log(action);
+
+        int[] Cards = ActionToCards(action);
+
+       
+
+
+        // Translate the action to cards and return
+        return Cards;
+    }
 
     // PRIVATE 
+    private bool CheckIfValid(int [] ourCards, int [] deck)
+    {
+        int Amount1Found = 0;
+        int Amount2Found = 0;
+        int Amount0Found = 0;
+
+        int Amount1Deck = 0;
+        int Amount2Deck = 0;
+        int Amount0Deck = 0;
+
+        for (int i = 0; i < 4; ++i)
+        {
+            if (deck[i] == 1)
+            {
+                ++Amount1Deck;
+            }
+            else if (deck[i] == 2)
+            {
+                ++Amount2Deck;
+            }
+            else
+            {
+                ++Amount0Deck; 
+            }
+        }
+
+        for(int i = 0; i < 3; ++i)
+        {
+
+            if (ourCards[i] == 1)
+            {
+                ++Amount1Found;
+            }
+            else if (ourCards[i] == 2)
+            {
+                ++Amount2Found;
+            }
+            else  if (ourCards[i] == 0)
+            {
+                ++Amount0Found;
+            }
+
+        }
+
+
+        if(Amount1Found <= Amount1Deck && Amount2Found <= Amount2Deck && Amount0Found <= Amount0Deck)
+        {
+            return true;
+        }
+        else
+        {
+            return false; // If invalid
+        }
+
+        
+    }
 
     // Return character in the given card (0-2)
     private int ClassifyCard(RenderTexture rtex)
